@@ -1,0 +1,239 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Consola {
+
+    String nombre; // Nombre de la consola
+    double precio; // Precio de la consola
+    int numJuegos; // Número de juegos disponibles para la consola
+
+    // Constructor para inicializar una consola
+    public Consola(String nombre, double precio, int numJuegos) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.numJuegos = numJuegos;
+    }
+
+     // Métodos para obtener y establecer los atributos de la consola
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public int getNumJuegos() {
+        return numJuegos;
+    }
+
+    public void setNumJuegos(int numJuegos) {
+        this.numJuegos = numJuegos;
+    }
+
+    // Método para representar la consola como una cadena de texto
+    @Override
+    public String toString() {
+        return nombre + ", precio= $" + precio + ", numero de juegos= " + numJuegos;
+    }
+
+}
+
+public class Main {
+
+    static Scanner input = new Scanner(System.in); // Scanner para leer entradas del usuario
+    static ArrayList<Consola> listaConsolas = new ArrayList<>(); // Lista para almacenar las consolas
+
+    // Método para agregar consolas a la lista
+    static void agregarConsolas() {
+        Consola nintendoSwitch = new Consola("Switch", 5000, 1009);
+        Consola ps5 = new Consola("PS5", 10000, 146);
+        Consola xboxS = new Consola("Xbox S", 7000, 210);
+        Consola n64 = new Consola("N64", 4300, 450);
+        Consola nes = new Consola("NES", 2900, 894);
+        Consola ps2 = new Consola("PS2", 3000, 857);
+        Consola xbox = new Consola("Xbox", 3200, 1034);
+        Consola wii = new Consola("Wii", 2900, 868);
+        Consola xbox360 = new Consola("Xbox 360", 3000, 587);
+        Consola playstation = new Consola("Playstation", 2800, 2646);
+
+        listaConsolas.add(nintendoSwitch);
+        listaConsolas.add(ps5);
+        listaConsolas.add(xboxS);
+        listaConsolas.add(n64);
+        listaConsolas.add(nes);
+        listaConsolas.add(ps2);
+        listaConsolas.add(xbox);
+        listaConsolas.add(wii);
+        listaConsolas.add(xbox360);
+        listaConsolas.add(playstation);
+    }
+
+    // Métodos para ordenar las consolas usando el algoritmo de burbuja
+    static void ordenamientoBurbujaNombre() {
+        boolean cambios; // Indica si hubo cambios en el orden
+        // Clona la lista
+        ArrayList<Consola> clon = new ArrayList<>();
+        clon.addAll(listaConsolas);
+
+        for (int i = 0; i < listaConsolas.size() - 1; i++) {
+            cambios = false; // Reinicia el indicador de cambios
+            for (int y = 0; y < listaConsolas.size() - 1 - i; y++) {
+                // Compara los nombres de las consolas
+                if (listaConsolas.get(y).getNombre().compareTo(listaConsolas.get(y + 1).getNombre()) > 0) {
+                    cambios = true; // Se hizo un cambio
+                    // Intercambia las consolas si están en el orden incorrecto
+                    Consola consola = listaConsolas.get(y);
+                    listaConsolas.set(y, listaConsolas.get(y + 1));
+                    listaConsolas.set(y + 1, consola);
+                }
+            }
+            if (!cambios) {
+                break; // Si no hubo cambios, ya está ordenado
+            }
+        }
+    }
+
+    static void ordenamientoBurbujaPrecio() {
+        boolean cambios;
+        ArrayList<Consola> clon = new ArrayList<>();
+        clon.addAll(listaConsolas);
+
+        for (int i = 0; i < listaConsolas.size() - 1; i++) {
+            cambios = false;
+            for (int y = 0; y < listaConsolas.size() - 1 - i; y++) {
+                // Compara los precios de las consolas
+                if (listaConsolas.get(y).getPrecio() > listaConsolas.get(y + 1).getPrecio()) {
+                    cambios = true;
+                    Consola consola = listaConsolas.get(y);
+                    listaConsolas.set(y, listaConsolas.get(y + 1));
+                    listaConsolas.set(y + 1, consola);
+                }
+            }
+            if (!cambios) {
+                break;
+            }
+        }
+    }
+
+    static void ordenamientoBurbujaNumJuegos() {
+        boolean cambios;
+        ArrayList<Consola> clon = new ArrayList<>();
+        clon.addAll(listaConsolas);
+
+        for (int i = 0; i < listaConsolas.size() - 1; i++) {
+            cambios = false;
+            for (int y = 0; y < listaConsolas.size() - 1 - i; y++) {
+                // Compara el número de juegos
+                if (listaConsolas.get(y).getNumJuegos() > listaConsolas.get(y + 1).getNumJuegos()) {
+                    cambios = true;
+                    Consola consola = listaConsolas.get(y);
+                    listaConsolas.set(y, listaConsolas.get(y + 1));
+                    listaConsolas.set(y + 1, consola);
+                }
+            }
+            if (!cambios) {
+                break;
+            }
+        }
+    }
+
+     // Métodos para ordenar usando el algoritmo de selección
+    static void ordenamientoSeleccionNombre() {
+        ArrayList<Consola> clon = new ArrayList<>();
+        clon.addAll(listaConsolas);
+
+        for (int i = 0; i < listaConsolas.size() - 1; i++) {
+            // Encuentra la consola hasta bajo de la lista
+            Consola posicion = listaConsolas.get(i);
+            for (int y = i + 1; y < listaConsolas.size(); y++) {
+                Consola next = listaConsolas.get(y);
+                if (posicion.getNombre().compareTo(next.getNombre()) > 0) {
+                    listaConsolas.set(i, next);
+                    listaConsolas.set(y, posicion);
+                    posicion = next; // Actualiza la posición
+                }
+            }
+        }
+    }
+
+    static void ordenamientoSeleccionPrecio() {
+        ArrayList<Consola> clon = new ArrayList<>();
+        clon.addAll(listaConsolas);
+
+        for (int i = 0; i < listaConsolas.size() - 1; i++) {
+            Consola posicion = listaConsolas.get(i);
+            for (int y = i + 1; y < listaConsolas.size(); y++) {
+                Consola next = listaConsolas.get(y);
+                if (posicion.getPrecio() > next.getPrecio()) {
+                    listaConsolas.set(i, next);
+                    listaConsolas.set(y, posicion);
+                    posicion = next;
+                }
+            }
+        }
+    }
+
+    static void ordenamientoSeleccionNumJuegos() {
+        ArrayList<Consola> clon = new ArrayList<>();
+        clon.addAll(listaConsolas);
+
+        for (int i = 0; i < listaConsolas.size() - 1; i++) {
+            Consola posicion = listaConsolas.get(i);
+            for (int y = i + 1; y < listaConsolas.size(); y++) {
+                Consola next = listaConsolas.get(y);
+                if (posicion.getNumJuegos() > next.getNumJuegos()) {
+                    listaConsolas.set(i, next);
+                    listaConsolas.set(y, posicion);
+                    posicion = next;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        agregarConsolas(); // Llama al método para agregar consolas
+        System.out.println("Consolas: " + listaConsolas); // Muestra la lista de consolas
+        
+        // Pide al usuario qué método de ordenamiento usar
+        System.out.println("Cual metodo de ordenamiento quieres usar?\n1) Burbuja\n2) Seleccion");
+        int opcion1 = input.nextInt(); // Opción para el método de ordenamiento
+        System.out.println("En base a que atributo se ordenara?\n1) Nombre\n2) Precio\n3) Cantidad de juegos");
+        int opcion2 = input.nextInt(); // Opción para elegir el criterio de ordenamiento
+
+        // Ejecuta el método de ordenamiento según la elección del usuario
+        if (opcion1 == 1 && opcion2 == 1) {
+            ordenamientoBurbujaNombre();
+        } else if (opcion1 == 1 && opcion2 == 2) {
+            ordenamientoBurbujaPrecio();
+        } else if (opcion1 == 1 && opcion2 == 3) {
+            ordenamientoBurbujaNumJuegos();
+        } else if (opcion1 == 2 && opcion2 == 1) {
+            ordenamientoSeleccionNombre();
+        } else if (opcion1 == 2 && opcion2 == 2) {
+            ordenamientoSeleccionPrecio();
+        } else if (opcion1 == 2 && opcion2 == 3) {
+            ordenamientoSeleccionNumJuegos();
+        } else {
+            System.out.println("eh?"); // Mensaje si la opción es inválida
+        }
+
+        // Muestra la lista de consolas ordenadas
+        System.out.println("Consolas ordenadas\n---------------------------------------------------------------");
+        // Imprime encabezados para la tabla
+        System.out.printf("%-20s %-10s %-15s%n", "Nombre", "Precio", "Numero de Juegos");
+        // Recorre la lista de consolas ya ordenadas y las imprime en formato tabular
+        for (Consola consola : listaConsolas) {
+            System.out.printf("%-20s %-10s %-15s%n", consola.getNombre(), "$" + consola.getPrecio(), consola.getNumJuegos() + " juegos");
+        }
+    }
+
+}
